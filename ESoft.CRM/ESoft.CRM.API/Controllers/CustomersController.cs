@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ESoft.CRM.Application.Queries;
 using ESoft.CRM.Domain.Entities;
 using ESoft.CRM.Application.Commands;
 

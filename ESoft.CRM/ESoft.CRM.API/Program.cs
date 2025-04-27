@@ -1,5 +1,6 @@
 using Esoft.Core;
 using ESoft.CRM.API;
+using ESoft.CRM.Application.Handlers;
 using ESoft.CRM.Domain.Interfaces.CRM;
 using ESoft.CRM.Domain.Interfaces.IRepository;
 using ESoft.CRM.Domain.Interfaces.Messaging;
