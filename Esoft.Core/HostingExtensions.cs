@@ -9,6 +9,8 @@ namespace Esoft.Core
         {
             logging.ClearProviders();
             logging.AddProvider(new EsoftLog());
+
+            //TODO: config rate limit
         }
     }
 }

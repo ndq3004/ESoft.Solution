@@ -24,7 +24,7 @@ namespace ESoft.Core.Logging
                 message += formatter(state, exception);
             }
             // Print value
-            Console.WriteLine($"{logLevel.ToString()} - {eventId.Id} - {message}");
+            Console.WriteLine($"<Might include Category> - {logLevel.ToString()} - {eventId.Id} - {message}");
         }
 
         private class NoopDisposable : IDisposable
