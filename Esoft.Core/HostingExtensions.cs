@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using ESoft.Core.Logging;
-using ESoft.Core.Interfaces.Logging;
+﻿using ESoft.Core.Logging;
 using Microsoft.Extensions.Logging;
 
 namespace Esoft.Core

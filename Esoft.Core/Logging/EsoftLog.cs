@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using ESoft.Core.Interfaces.Logging;
 namespace ESoft.Core.Logging
 {
     public class CustomEsoftLog : ILogger
