@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MassTransit" Version="8.4.0" />
+    <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.4.0" />
+	<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="6.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Esoft.Core\Esoft.Core.csproj" />
+    <ProjectReference Include="..\ESoft.CRM.Application\ESoft.CRM.Application.csproj" />
+    <ProjectReference Include="..\ESoft.CRM.Domain\ESoft.CRM.Domain.csproj" />
+    <ProjectReference Include="..\ESoft.CRM.Persistence\ESoft.CRM.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
