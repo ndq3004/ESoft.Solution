@@ -11,6 +11,7 @@ using ESoft.CRM.Infrastructure.Persistence.Repository;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using ESoft.CRM.Domain.Interfaces.IGraph;
+using Azure.Messaging.ServiceBus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,8 +59,15 @@ builder.Services.AddSingleton<IPIMServiceClient, PIMServiceClient>();
 builder.Services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IMessageBus, MassTransitMessagingBroker>();
+builder.Services.AddScoped<IDirectMessageBus, ServiceBusPublisher>();
 
-
+builder.Services.AddSingleton<ServiceBusClient>(sp =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("ServiceBus");
+    return new ServiceBusClient(connectionString, new ServiceBusClientOptions {
+        TransportType = ServiceBusTransportType.AmqpWebSockets
+    });
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
