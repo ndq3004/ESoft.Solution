@@ -1,0 +1,79 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<input type="text" id="userInput" placeholder="Your name" />
+<br />
+<br />
+
+<textarea type="text" id="messageInput" placeholder="Your message" rows="4" cols="50" ></textarea>
+<button onclick="sendMessage()">Send</button>
+<ul id="messagesList"></ul>
+
+
+
+<div>==================================================</div>
+<br />
+<form action="/home/upload" method="post" enctype="multipart/form-data">
+    <input type="file" id="fileInput" name="file" placeholder="upload file" />
+    <br />
+    <br />
+    <input type="submit" />
+</form>
+
+<div id="status"></div>
+<div>
+    <div>List of uploaded files:</div>
+    <div id="fileLists">
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/signalr/dist/browser/signalr.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+    connection.on("ReceiveMessage", (user, message) => {
+      const li = document.createElement("li");
+      li.textContent = `${user}: ${message}`;
+      document.getElementById("messagesList").appendChild(li);
+    });
+
+    connection.start().catch(err => console.error(err.toString()));
+
+    function sendMessage() {
+      const user = document.getElementById("userInput").value;
+      const messageInpt = document.getElementById("messageInput")
+      const message = messageInpt.value;
+      connection.invoke("SendMessage", user, message).catch(err => console.error(err.toString()));
+      messageInpt.value = "";
+    }
+
+    $(document).ready(function(){
+        $.ajax({
+            url: "/home/files",
+            type: "GET",
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response.allFiles.length > 0) {
+                    var listFilesElement = document.getElementById("fileLists");
+                    for(let f of response.allFiles) {
+                        const div = document.createElement('div');
+                        const link = document.createElement('a');
+                        link.setAttribute('href', location.protocol + '//' + location.host + '/home/download/' + f);
+                        link.textContent = f;
+                        div.appendChild(link);
+                        listFilesElement.appendChild(div);
+                    }
+                }
+            },
+            error: function () {
+                $("#status").text("get files failed!");
+            }
+
+        })
+    });
+</script>
